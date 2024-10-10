@@ -94,7 +94,7 @@ Acesse a aplicação em seu navegador utilizando o endereço:
 - [App Local](http://localhost:30080)
 
 ### Lista de Urls
-    - [Postman](https://app.getpostman.com/join-team?invite_code=2187a55191b165b6ef87a08ddc82265f&target_code=91faf8b0f0e68533bc0422f80e119f13)
+- [Postman](https://app.getpostman.com/join-team?invite_code=2187a55191b165b6ef87a08ddc82265f&target_code=91faf8b0f0e68533bc0422f80e119f13)
 
 ### Estrutura do Projeto
 
