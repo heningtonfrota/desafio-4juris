@@ -82,7 +82,11 @@ php artisan migrate
 Este projeto utiliza o Jetstream com Livewire, e está pronto para autenticação. Se precisar configurar mais opções, pode rodar o seguinte comando:
 
 ```bash
-php artisan jetstream:install inertia
+npm install
+```
+
+```bash
+npm run build
 ```
 ### Utilização
 
