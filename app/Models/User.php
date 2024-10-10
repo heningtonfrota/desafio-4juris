@@ -66,6 +66,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function company() 
+    {
+        return $this->belongsTo(Company::class);
+    }
+
     public function scopeByCompany($query, $company_id)
     {
         return $query->where('company_id', $company_id);

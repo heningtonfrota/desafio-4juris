@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyRequest;
+use App\Http\Resources\CompanyResource;
 use App\Models\Company;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index() : JsonResponse
+    public function index() : JsonResource
     {
         $companies = Company::get();
-        return response()->json(['companies' => $companies]);
+        return CompanyResource::collection($companies);
     }
 
     /**
@@ -23,16 +24,16 @@ class CompanyController extends Controller
     public function store(CompanyRequest $request)
     {
         $data = $request->validated();
-        Company::create($data);
-        return $this->index();
+        $company = Company::create($data);
+        return $this->show($company);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Company $company)
+    public function show(Company $company) : JsonResource
     {
-        return response()->json(['company' => $company]);
+        return new CompanyResource($company);
     }
 
     /**

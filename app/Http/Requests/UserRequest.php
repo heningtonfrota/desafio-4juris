@@ -22,15 +22,17 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'name' => 'required|string|min:3|max:255',
+            'name' => 'string|min:3|max:255|',
             'email' => 'email|',
             'company_id' => 'nullable|integer|exists:companies,id',
         ];
 
         if ($this->isMethod('post')) {
+            $rules['name'] .= 'required';
             $rules['email'] .= 'required|unique:users,email';
             $rules['password'] = 'required|string|min:8';
         } else if ($this->isMethod('put') || $this->isMethod('patch')) {
+            $rules['name'] .= 'nullable';
             $rules['email'] .= 'nullable|unique:users,email,' . $this->route('user');
             $rules['password'] = 'nullable|string|min:8';
         }

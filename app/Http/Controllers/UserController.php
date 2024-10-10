@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request) : JsonResponse
+    public function index(Request $request) : JsonResource
     {
         if (!empty($request->company_id)) {
             $users = User::byCompany($request->company_id)->get();
@@ -20,7 +21,7 @@ class UserController extends Controller
             $users = User::get();
         }
 
-        return response()->json(['users' => $users]);
+        return UserResource::collection($users);
     }
 
     /**
@@ -36,9 +37,9 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user) : JsonResponse
+    public function show(User $user) : JsonResource
     {
-        return response()->json(['user' => $user]);
+        return new UserResource($user);
     }
 
     /**
@@ -57,6 +58,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return $this->index();
+        return $this->index(new Request(['company_id' => null]));
     }
 }

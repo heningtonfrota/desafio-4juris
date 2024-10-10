@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ClientRequest;
+use App\Http\Resources\ClientResource;
 use App\Models\Client;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index() : JsonResponse
+    public function index() : JsonResource
     {
         $clients = Client::get();
-        return response()->json(['clients' => $clients]);
+        return ClientResource::collection($clients);
     }
 
     /**
@@ -23,16 +24,16 @@ class ClientController extends Controller
     public function store(ClientRequest $request)
     {
         $data = $request->validated();
-        Client::create($data);
-        return $this->index();
+        $client = Client::create($data);
+        return $this->show($client);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Client $client) : JsonResponse
+    public function show(Client $client) : JsonResource
     {
-        return response()->json(['client' => $client]);
+        return new ClientResource($client);
     }
 
     /**

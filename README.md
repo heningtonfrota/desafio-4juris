@@ -62,6 +62,12 @@ Depois que os contêineres estiverem em execução, execute o seguinte comando p
 docker compose exec app bash
 ```
 
+Instalar as dependencias do laravel:
+
+```bash
+composer install
+```
+
 ### 5. Gerar chave da aplicação
 
 Execute o seguinte comando para gerar a chave da aplicação Laravel:
