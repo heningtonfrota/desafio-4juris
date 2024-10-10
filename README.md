@@ -17,8 +17,11 @@ Siga os passos abaixo para configurar o projeto em seu ambiente local:
 ### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
-cd SEU_REPOSITORIO
+git clone https://github.com/heningtonfrota/desafio-4juris.git
+```
+
+```bash
+cd desafio-4juris
 ```
 
 ### 2. Configurar o arquivo .env
