@@ -1,66 +1,110 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Projeto Laravel com Jetstream e Docker
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este repositório contém uma aplicação Laravel utilizando Jetstream para autenticação, implementada em um ambiente de contêiner com Docker e Docker Compose.
 
-## About Laravel
+## Pré-requisitos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Certifique-se de que você tenha os seguintes softwares instalados em sua máquina:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+- [Composer](https://getcomposer.org/download/) (para instalar dependências no ambiente local)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Instalação
 
-## Learning Laravel
+Siga os passos abaixo para configurar o projeto em seu ambiente local:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 1. Clonar o repositório
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```bash
+git clone https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
+cd SEU_REPOSITORIO
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 2. Configurar o arquivo .env
+Copie o arquivo .env.example para .env e configure as variáveis necessárias, incluindo as informações de banco de dados:
 
-## Laravel Sponsors
+```bash
+cp .env.example .env
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+No arquivo .env, configure o nome do banco de dados, usuário e senha como no exemplo abaixo:
 
-### Premium Partners
+```bash
+DB_CONNECTION=pgsql
+DB_HOST=postgres
+DB_PORT=5432
+DB_DATABASE=desafio_4juris
+DB_USERNAME=admin_4juris
+DB_PASSWORD=secret_4juris
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### 3. Construir e iniciar os contêineres
 
-## Contributing
+Execute o comando abaixo para construir os contêineres e iniciar os serviços:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+docker compose up -d
+```
+Este comando irá configurar os seguintes serviços:
 
-## Code of Conduct
+App: Laravel rodando com PHP-FPM.
+Postgres: Banco de dados Postgres.
+Nginx: Servidor web para servir a aplicação Laravel.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 4. Instalar as dependências
 
-## Security Vulnerabilities
+Depois que os contêineres estiverem em execução, execute o seguinte comando para instalar as dependências PHP:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+docker compose exec app bash
+```
 
-## License
+### 5. Gerar chave da aplicação
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Execute o seguinte comando para gerar a chave da aplicação Laravel:
+
+```bash
+php artisan key:generate
+```
+### 6. Rodar as migrações
+
+Execute o seguinte comando para rodar as migrações e configurar o banco de dados:
+
+```bash
+php artisan migrate
+```
+
+### 7. Configurar o Jetstream
+Este projeto utiliza o Jetstream com Livewire, e está pronto para autenticação. Se precisar configurar mais opções, pode rodar o seguinte comando:
+
+```bash
+php artisan jetstream:install inertia
+```
+### Utilização
+
+Acessar a aplicação
+
+Acesse a aplicação em seu navegador utilizando o endereço:
+
+http://localhost:30080
+
+### Estrutura do Projeto
+
+- app: Contém o código fonte da aplicação Laravel.
+- database: Arquivos relacionados ao banco de dados, como migrações e seeders.
+- docker: Arquivos de configuração do Docker e Docker Compose.
+- public: Pasta pública que contém o arquivo index.php.
+- routes: Definições de rotas da aplicação.
+- resources: Arquivos de frontend, como views e assets.
+
+### Tecnologias Utilizadas
+
+- Laravel: Framework PHP para desenvolvimento backend.
+- Jetstream: Gerenciamento de autenticação e funcionalidades para Laravel.
+- Docker: Containerização da aplicação para ambiente de desenvolvimento isolado.
+- Docker Compose: Ferramenta para definir e gerenciar múltiplos contêineres.
+
+### Licença
+
+Este projeto está licenciado sob a MIT License.
