@@ -8,7 +8,6 @@ Certifique-se de que você tenha os seguintes softwares instalados em sua máqui
 
 - [Docker](https://www.docker.com/get-started)
 - [Docker Compose](https://docs.docker.com/compose/install/)
-- [Composer](https://getcomposer.org/download/) (para instalar dependências no ambiente local)
 
 ## Instalação
 
@@ -90,11 +89,12 @@ npm run build
 ```
 ### Utilização
 
-Acessar a aplicação
-
 Acesse a aplicação em seu navegador utilizando o endereço:
 
-http://localhost:30080
+- [App Local](http://localhost:30080)
+
+### Lista de Urls
+    - [Postman](https://app.getpostman.com/join-team?invite_code=2187a55191b165b6ef87a08ddc82265f&target_code=91faf8b0f0e68533bc0422f80e119f13)
 
 ### Estrutura do Projeto
 
